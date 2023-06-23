@@ -34,7 +34,35 @@ container.innerHTML = people
   })
   .join("");
 
-const startSlider = (type) => {};
+const startSlider = (type) => {
+  const active = document.querySelector(".active");
+  const last = document.querySelector(".last");
+  let next = active.nextElementSibling;
+  if (!next) {
+    next = container.firstElementChild;
+  }
+  // remove the classes
+  active.classList.remove(["active"]);
+  last.classList.remove(["last"]);
+  next.classList.remove(["next"]);
+
+  if (type === "prev") {
+    active.classList.add("next");
+    last.classList.add("active");
+    next = last.previousElementSibling;
+    if (!next) {
+      next = container.lastElementChild;
+    }
+    next.classList.remove(["next"]);
+    next.classList.add("last");
+    return;
+  }
+
+  // add classes
+  active.classList.add("last");
+  last.classList.add("next");
+  next.classList.add("active");
+};
 
 nextBtn.addEventListener("click", () => {
   startSlider();
